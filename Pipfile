@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu/torch_stable.html"
+verify_ssl = false
+
+[packages]
+torch = {version = "==1.8.1", index = "pytorch"}
+torchvision = {version = "==0.9.1", index = "pytorch"}
+streamlit = "*"
+albumentations = "*"
+tqdm = "*"
+
+[dev-packages]
+pyngrok = "*"
+
+[requires]
+python_version = "3.7"
