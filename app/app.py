@@ -32,6 +32,7 @@ def generate_random_noise():
 if st.button('Generate Random Noise'):
     noise = generate_random_noise()
     #Generate image
+    st.write('Generating face...')
     with torch.no_grad():
         image = generator(noise)
     image = image.data.numpy().transpose(0, 2, 3, 1)[0]
