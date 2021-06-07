@@ -2,6 +2,7 @@ import argparse, os, torch
 import random
 from src.models.dcgan import DCGAN
 from src.models.wgan_gp import WGAN_GP
+from src.models.dragan import DRAGAN
 
 """parsing and configuration"""
 def parse_args():
@@ -61,6 +62,7 @@ def main():
     print("Random Seed: ", manualSeed)
     random.seed(manualSeed)
     torch.manual_seed(manualSeed)
+    torch.cuda.manual_seed(manualSeed)
 
     # parse arguments
     args = parse_args()
@@ -70,11 +72,13 @@ def main():
     if args.benchmark_mode:
         torch.backends.cudnn.benchmark = True
 
-        # declare instance for GAN
+    # declare instance for GAN
     if args.gan_type == 'DCGAN':
         gan = DCGAN(args)
     elif args.gan_type == 'WGAN_GP':
         gan = WGAN_GP(args)
+    elif args.gan_type == 'DRAGAN':
+        gan = DRAGAN(args)
     else:
         raise Exception("[!] There is no option for " + args.gan_type)
 

@@ -1,25 +1,24 @@
 import streamlit as st
 import torch
-import numpy as np
+from torch.utils import model_zoo
 from PIL import Image
-from pathlib import Path
-# import sys
-# sys.path.append('..')
-from src.models.dcgan import Generator
-
-logo_img = Path('../dataset/raw/faces/4.jpg')
-img = Image.open(logo_img)
+import numpy as np
+import sys
+sys.path.append('.')
+from src.models.dragan import Generator
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
-CHECKPOINT_PATH = Path('../checkpoints/DCGAN/DCGAN_G.pkl')
+CHECKPOINT_URL = ""
 
 @st.cache
 def get_generator():
     model = Generator(hidden_dim=64)
-    model.load_state_dict(torch.load(str(CHECKPOINT_PATH)))
+    state_dict = model_zoo.load_url(CHECKPOINT_URL, progress=True, map_location="cpu")
+    model.load_state_dict(state_dict)
     model.eval()
-    return model
+    script_module = torch.jit.script(model)
+    return script_module
 
 
 generator = get_generator()
@@ -37,5 +36,8 @@ if st.button('Generate Random Noise'):
         image = generator(noise)
     image = image.data.numpy().transpose(0, 2, 3, 1)[0]
     image = (image + 1) / 2
-
+    image = image.astype('uint8')
+    image = Image.fromarray(image).convert('RGB')
+    image = image.resize((image.size[0]*2, image.size[1]*2), resample=Image.BILINEAR)
+    image = np.asarray(image)
     st.image(image, use_column_width=True, caption='Generated Face')
