@@ -16,31 +16,19 @@ from pretrained_superresolution.generator import srgan
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
-CHECKPOINT_URL = "https://github.com/duylebkHCM/Anime-Face-Generator-/releases/download/v1.0/DRAGAN_G.pkl"
-
 @st.cache
-def get_generator():
+def get_generator(url):
     model = Generator(hidden_dim=64)
-    state_dict = model_zoo.load_url(CHECKPOINT_URL, progress=True, map_location="cpu")
+    state_dict = model_zoo.load_url(url, progress=True, map_location="cpu")
     model.load_state_dict(state_dict)
     model.eval()
     return model
-
-
-generator = get_generator()
-generator = torch.jit.script(generator)
 
 @st.cache
 def get_super_resolution():
     model = srgan(pretrained=True)
     model.eval()
     return model
-
-# super_resolution_gen = get_super_resolution()
-# super_resolution_gen = torch.jit.script(super_resolution_gen)
-
-st.title('Anime Face Generator')
-st.header('PyTorch Project using Generative Adversarial Network')
 
 def generate_random_noise():
     return torch.randn((1, 100))
@@ -100,39 +88,54 @@ def download_image(object_to_download, filename, button_text):
     dl_link = custom_css + f'<a download="{filename}" id="{button_id}" href="data:file/txt;base64,{b64}">{button_text}</a><br></br>'
     return dl_link
 
-if st.button('Generate Some Random Faces'):
-    noise = generate_random_noise()
-    #Generate image
-    with st.spinner('Wait for it...'):
-        with torch.no_grad():
-            image = generator(noise)
-    image = image.data.numpy().transpose(0, 2, 3, 1)[0]
-    image = (image + 1) / 2
-    image = image*255.0
-    image = image.astype('uint8')
 
-    #@TODO 
-    #Perform super_resolution_gen 
-    # tensor = transforms.ToTensor()(image)
-    # input_tensor = tensor.unsqueeze(0)
-    # with torch.no_grad():
-    #     sr_image = super_resolution_gen(input_tensor)
+def main():
+    CHECKPOINT_URL = "https://github.com/duylebkHCM/Anime-Face-Generator-/releases/download/v1.0/DRAGAN_G.pkl"
+    generator = get_generator(CHECKPOINT_URL)
+    generator = torch.jit.script(generator)
+    # super_resolution_gen = get_super_resolution()
+    # super_resolution_gen = torch.jit.script(super_resolution_gen)
 
-    # image = sr_image.data.numpy().transpose(0, 2, 3, 1)[0]
-    # image = (image + 1) / 2
-    # image = image*255.0
-    # image = image.astype('uint8')
-    pil_image = Image.fromarray(image).convert('RGB')
-    #Save image 
-    pil_image.save('generate_face.jpg', quality=100, subsampling=0)
+    st.title('Anime Face Generator')
+    st.header('PyTorch Project using Generative Adversarial Network')
 
-    image = pil_image.resize((pil_image.size[0]*2, pil_image.size[1]*2), resample=Image.BICUBIC)
-    image = np.asarray(image)
-    st.image(image, use_column_width=True, caption='Generated Face')
+    if st.button('Generate Some Random Faces'):
+        noise = generate_random_noise()
+        #Generate image
+        with st.spinner('Wait for it...'):
+            with torch.no_grad():
+                image = generator(noise)
+        image = image.data.numpy().transpose(0, 2, 3, 1)[0]
+        image = (image + 1) / 2
+        image = image*255.0
+        image = image.astype('uint8')
 
-    #Download the image    
-    with open('generate_face.jpg', 'rb') as f:
-        s = f.read()
-    download_button_str = download_image(s, 'generate_face.jpg', f'Click here to download')
-    st.markdown(download_button_str, unsafe_allow_html=True)
-    os.remove('generate_face.jpg')
+        #@TODO 
+        #Perform super_resolution_gen 
+        # tensor = transforms.ToTensor()(image)
+        # input_tensor = tensor.unsqueeze(0)
+        # with torch.no_grad():
+        #     sr_image = super_resolution_gen(input_tensor)
+
+        # image = sr_image.data.numpy().transpose(0, 2, 3, 1)[0]
+        # image = (image + 1) / 2
+        # image = image*255.0
+        # image = image.astype('uint8')
+        pil_image = Image.fromarray(image).convert('RGB')
+        #Save image 
+        pil_image.save('generate_face.jpg', quality=100, subsampling=0)
+
+        image = pil_image.resize((pil_image.size[0]*2, pil_image.size[1]*2), resample=Image.BICUBIC)
+        image = np.asarray(image)
+        st.image(image, use_column_width=True, caption='Generated Face')
+
+        #Download the image    
+        with open('generate_face.jpg', 'rb') as f:
+            s = f.read()
+        download_button_str = download_image(s, 'generate_face.jpg', f'Click here to download')
+        st.markdown(download_button_str, unsafe_allow_html=True)
+        os.remove('generate_face.jpg')
+
+
+if __name__ == '__main__':
+    main()

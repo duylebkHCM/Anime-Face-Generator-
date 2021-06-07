@@ -109,3 +109,5 @@ venv.bak/
 /checkpoints
 /dataset
 git_push.sh
+Pipfile
+Pipfile.lock
