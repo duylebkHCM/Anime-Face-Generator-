@@ -108,6 +108,7 @@ venv.bak/
 .vscode/
 /checkpoints
 /dataset
+/results
 git_push.sh
 Pipfile
 Pipfile.lock
