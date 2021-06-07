@@ -135,3 +135,4 @@ if st.button('Generate Some Random Faces'):
         s = f.read()
     download_button_str = download_image(s, 'generate_face.jpg', f'Click here to download')
     st.markdown(download_button_str, unsafe_allow_html=True)
+    os.remove('generate_face.jpg')
