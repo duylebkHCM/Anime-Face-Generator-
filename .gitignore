@@ -105,7 +105,7 @@ venv.bak/
 
 # ide
 .idea/
-
+.vscode/
 /checkpoints
 /dataset
 git_push.sh
