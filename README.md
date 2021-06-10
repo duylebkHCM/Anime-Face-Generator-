@@ -20,8 +20,8 @@ You can download the training data from: https://drive.google.com/open?id=1bXXeE
 All results are generated from the fixed noise vector.
 *Name* | *Epoch 1* | *Epoch 50* | *Epoch 100* | *GIF*
 :---: | :---: | :---: | :---: | :---: |
-DCGAN | <img src = 'assets/DCGAN/DCGAN_epoch001.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch050.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch100.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_generate_animation.gif' height = '200px'
-WGAN_GP | <img src = 'assets/WGAN_GP/WGAN_GP_epoch001.png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_epoch050png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_epoch100.png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_generate_animation.gif' height = '200px'>
+DCGAN | <img src = 'assets/DCGAN/DCGAN_epoch001.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch050.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch100.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_generate_animation.gif' height = '200px'>
+WGAN_GP | <img src = 'assets/WGAN_GP/WGAN_GP_epoch001.png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_epoch050.png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_epoch100.png' height = '200px'> | <img src = 'assets/WGAN_GP/WGAN_GP_generate_animation.gif' height = '200px'>
 DRAGAN | <img src = 'assets/DRAGAN/DRAGAN_epoch001.png' height = '200px'> | <img src = 'assets/DRAGAN/DRAGAN_epoch050.png' height = '200px'> | <img src = 'assets/DRAGAN/DRAGAN_epoch100.png' height = '200px'> | <img src = 'assets/DRAGAN/DRAGAN_generate_animation.gif' height = '200px'>
 
 ## Development Environment
