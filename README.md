@@ -18,6 +18,7 @@ You can download the training data from: https://drive.google.com/open?id=1bXXeE
 
 ## Result for the dataset with fixed generation
 All results are generated from the fixed noise vector.
+
 *Name* | *Epoch 1* | *Epoch 50* | *Epoch 100* | *GIF*
 :---: | :---: | :---: | :---: | :---: |
 DCGAN | <img src = 'assets/DCGAN/DCGAN_epoch001.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch050.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_epoch100.png' height = '200px'> | <img src = 'assets/DCGAN/DCGAN_generate_animation.gif' height = '200px'>
